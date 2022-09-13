@@ -100,7 +100,7 @@ module "ecs_web_app" {
   ecs_cluster_arn                   = aws_ecs_cluster.default.arn
   ecs_cluster_name                  = aws_ecs_cluster.default.name
   ecs_security_group_ids            = var.ecs_security_group_ids
-  ecr_image_tag_mutability = var.ecr_image_tag_mutability
+  ecr_image_tag_mutability          = var.ecr_image_tag_mutability
   health_check_grace_period_seconds = var.health_check_grace_period_seconds
   desired_count                     = var.desired_count
   launch_type                       = var.launch_type
