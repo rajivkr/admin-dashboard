@@ -295,6 +295,12 @@ variable "ecs_security_group_ids" {
   default     = []
 }
 
+variable "ecr_image_tag_mutability" {
+  type        = string
+  default     = "IMMUTABLE"
+  description = "The tag mutability setting for the ecr repository. Must be one of: `MUTABLE` or `IMMUTABLE`"
+}
+
 variable "codepipeline_github_oauth_token" {
   type        = string
   description = "GitHub Oauth Token with permissions to access private repositories"
