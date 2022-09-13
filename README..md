@@ -1,3 +1,7 @@
+## Create Parameters
+
+In Parameter store, create a Parameter to store value for Github OAuth token against this `GITHUB_OAUTH_TOKEN` parameter.
+
 ## Example Buildspec
 
 Here's an example `buildspec.yaml`. Stick this in the root of your project repository.
