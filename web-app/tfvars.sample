@@ -1,0 +1,243 @@
+region = "us-east-1"
+
+availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+
+namespace = "enterprise"
+
+stage = "prod"
+
+name = "client-test"
+
+vpc_cidr_block = "172.16.0.0/16"
+
+container_image = "cloudposse/default-backend"
+
+container_cpu = 1024
+
+container_memory = 2048
+
+container_memory_reservation = 512
+
+container_port = 3000
+
+container_port_mappings = [
+  {
+    containerPort = 3000
+    hostPort      = 3000
+    protocol      = "tcp"
+  }
+]
+
+desired_count = 1
+
+launch_type = "FARGATE"
+
+alb_target_group_alarms_enabled = true
+
+alb_target_group_alarms_3xx_threshold = 25
+
+alb_target_group_alarms_4xx_threshold = 25
+
+alb_target_group_alarms_5xx_threshold = 25
+
+alb_target_group_alarms_response_time_threshold = 0.5
+
+alb_target_group_alarms_period = 300
+
+alb_target_group_alarms_evaluation_periods = 1
+
+alb_ingress_healthcheck_path = "/api/examples/"
+
+healthcheck = {
+  command     = ["CMD-SHELL curl -f http://localhost:3000/api/examples/ || exit 1"]
+    retries     = 10
+    timeout     = 5
+    interval    = 300
+    startPeriod = 100
+}
+
+alb_ingress_listener_unauthenticated_priority = 1000
+
+alb_ingress_unauthenticated_paths = ["/"]
+
+aws_logs_region = "us-east-1"
+
+log_driver = "awslogs"
+
+ecs_alarms_enabled = true
+
+ecs_alarms_cpu_utilization_high_threshold = 80
+
+ecs_alarms_cpu_utilization_high_evaluation_periods = 1
+
+ecs_alarms_cpu_utilization_high_period = 300
+
+ecs_alarms_cpu_utilization_low_threshold = 20
+
+ecs_alarms_cpu_utilization_low_evaluation_periods = 1
+
+ecs_alarms_cpu_utilization_low_period = 300
+
+ecs_alarms_memory_utilization_high_threshold = 80
+
+ecs_alarms_memory_utilization_high_evaluation_periods = 1
+
+ecs_alarms_memory_utilization_high_period = 300
+
+ecs_alarms_memory_utilization_low_threshold = 20
+
+ecs_alarms_memory_utilization_low_evaluation_periods = 1
+
+ecs_alarms_memory_utilization_low_period = 300
+
+ecr_image_tag_mutability = "MUTABLE"
+
+autoscaling_enabled = true
+
+autoscaling_dimension = "memory"
+
+autoscaling_min_capacity = 1
+
+autoscaling_max_capacity = 2
+
+autoscaling_scale_up_adjustment = 1
+
+autoscaling_scale_up_cooldown = 60
+
+autoscaling_scale_down_adjustment = -1
+
+autoscaling_scale_down_cooldown = 300
+
+poll_source_changes = false
+
+webhook_enabled = false
+
+webhook_target_action = "Source"
+
+webhook_filter_json_path = "$.ref"
+
+webhook_filter_match_equals = "refs/heads/{Branch}"
+
+authentication_type = ""
+
+codepipeline_enabled = true
+
+codepipeline_s3_bucket_force_destroy = true
+
+codepipeline_github_oauth_token = "You github token in string  first"
+# after first deployment changes it to use variable from Systems Manger > Parameter Store, For Eg: GITHUB_OAUTH_TOKEN
+
+codepipeline_github_webhook_events = ["push"]
+
+codepipeline_repo_owner = "BuyProperly"
+
+codepipeline_repo_name = "enterprise-client"
+
+codepipeline_branch = "staging"
+
+codepipeline_badge_enabled = false
+
+codepipeline_build_image = "aws/codebuild/docker:17.09.0"
+
+codepipeline_build_timeout = 20
+
+build_environment_variables = [
+  {
+    name  = "COUNTRY"
+    value = "US"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "NODE_ENV"
+    value = "beta"
+    type  = "PLAINTEXT"
+  },
+  {
+    name  = "PORT"
+    value = "3000"
+    type  = "PLAINTEXT"
+  }
+]
+
+container_environment = [
+  {
+    name = "COUNTRY"
+    value = "US"
+  },
+  {
+    name = "DB_URL"
+    value = ""
+  },
+  {
+    name = "SCHEMA"
+    value = "public"
+  },
+  {
+    name = "DOCUSIGN_CALLBACK_URL"
+    value = "https://b2btest.buyproperly.ca/api/docusign/v1/ds-return"
+  },
+  {
+    name = "DOCUSIGN_INTEGRATION_KEY"
+    value = ""
+  },
+  {
+    name = "DOCUSIGN_RETURN_URL"
+    value = "https://b2btest.buyproperly.ca/docusign"
+  },
+  {
+    name = "DOCUSIGN_SECRET_KEY"
+    value = ""
+  },
+  {
+    name = "DOCUSIGN_USER_GUID"
+    value = ""
+  },
+  {
+    name = "EQUIFAX_CUSTOMER_CODE"
+    value = ""
+  },
+  {
+    name = "EQUIFAX_CUSTOMER_NUMBER"
+    value = ""
+  },
+  {
+    name = "EQUIFAX_OAUTH_CLIENT_ID"
+    value = ""
+  },
+  {
+    name = "EQUIFAX_OAUTH_CLIENT_SECRET"
+    value = ""
+  },
+  {
+    name = "EQUIFAX_SECURITY_CODE"
+    value = 
+  },
+  {
+    name = "GOOGLE_APPLICATION_CREDENTIALS"
+    value = "./config/recaptcha.json"
+  },
+  {
+    name = "HOST_URL"
+    value = "https://b2btest.buyproperly.ca"
+  },
+  {
+    name = "MULTI_THREAD"
+    value = "true"
+  },
+  {
+    name = "NODE_ENV"
+    value = "beta"
+  },
+  {
+    name = "QUOTAGUARDSTATIC_URL"
+    value = ""
+  },
+  {
+    name = "SENDGRID_API_KEY"
+    value = ""
+  },
+  {
+    name = "TIMEOUT"
+    value = 2
+  },
+]
