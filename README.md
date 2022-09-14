@@ -2,6 +2,10 @@
 
 In Parameter store, create a Parameter to store value for Github OAuth token against this `GITHUB_OAUTH_TOKEN` parameter.
 
+## Bugs
+
+There is a bug in the module used, first we need to push the changes with `codepipeline_github_oauth_token` containing actual github token, then if the Code Pipeline starts working, then we can change the value for this variable to use a Parameter from `Systems Manager > Paramater store`
+
 ## Example Buildspec
 
 Here's an example `buildspec.yaml`. Stick this in the root of your project repository.
