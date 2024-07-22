@@ -45,7 +45,12 @@ resource "aws_s3_bucket_policy" "app_bucket_policy" {
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "${aws_s3_bucket.app_bucket.arn}/*"
+            "Resource": "${aws_s3_bucket.app_bucket.arn}/*",
+            "Condition": {
+              "Bool": {
+                "aws:SecureTransport": "false"
+              }
+            },
         }
     ]
 }
