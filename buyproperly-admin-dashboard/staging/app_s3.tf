@@ -46,11 +46,18 @@ resource "aws_s3_bucket_policy" "app_bucket_policy" {
             "Principal": "*",
             "Action": "s3:GetObject",
             "Resource": "${aws_s3_bucket.app_bucket.arn}/*",
+        },
+        {
+            "Sid": "AllowSSLRequestsOnly",
+            "Action": "s3:*",
+            "Effect": "Deny",
+            "Resource": "${aws_s3_bucket.app_bucket.arn}/*",
             "Condition": {
               "Bool": {
                 "aws:SecureTransport": "false"
               }
             },
+            "Principal": "*"
         }
     ]
 }
