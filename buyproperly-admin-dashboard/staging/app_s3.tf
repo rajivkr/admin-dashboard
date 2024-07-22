@@ -16,6 +16,13 @@ resource "aws_s3_bucket_website_configuration" "app_bucket_website_configuration
   }
 }
 
+resource "aws_s3_bucket_versioning" "versioning_example" {
+  bucket = aws_s3_bucket.app_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_cors_configuration" "app_bucket_cors_configuration" {
   bucket = aws_s3_bucket.app_bucket.id
 
