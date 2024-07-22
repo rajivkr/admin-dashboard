@@ -11,7 +11,7 @@ resource "aws_s3_bucket_versioning" "versioning_example" {
 }
 
 resource "aws_s3_bucket_public_access_block" "example" {
-  bucket = aws_s3_bucket.app_bucket.id
+  bucket = aws_s3_bucket.pipeline_bucket.id
 
   block_public_acls       = true
   block_public_policy     = true
