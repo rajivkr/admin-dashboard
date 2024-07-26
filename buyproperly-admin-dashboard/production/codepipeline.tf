@@ -2,6 +2,10 @@ resource "aws_codepipeline" "codepipeline1" {
   name     = "${var.projectname}-pipeline"
   role_arn = aws_iam_role.codepipeline_role1.arn
 
+  tags = {
+    Name = "BPInfra"
+  }
+
   artifact_store {
     location = aws_s3_bucket.pipeline_bucket.bucket
     type     = "S3"

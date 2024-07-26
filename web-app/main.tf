@@ -5,8 +5,6 @@ provider "aws" {
 module "vpc" {
   source = "cloudposse/vpc/aws"
   # version    = "0.18.2"
-  cidr_block = var.vpc_cidr_block
-
   context = module.this.context
 
 }
@@ -29,24 +27,25 @@ module "subnets" {
 module "alb" {
   source = "cloudposse/alb/aws"
   # version                                 = "0.27.0"
-  vpc_id                                          = module.vpc.vpc_id
-  security_group_ids                              = [module.vpc.vpc_default_security_group_id]
-  subnet_ids                                      = module.subnets.public_subnet_ids
-  internal                                        = false
-  http_enabled                                    = true
-  access_logs_enabled                             = true
-  alb_access_logs_s3_bucket_force_destroy         = true
-  alb_access_logs_s3_bucket_force_destroy_enabled = true
-  cross_zone_load_balancing_enabled               = true
-  http2_enabled                                   = true
-  deletion_protection_enabled                     = false
+  vpc_id                                  = module.vpc.vpc_id
+  security_group_ids                      = [module.vpc.vpc_default_security_group_id]
+  subnet_ids                              = module.subnets.public_subnet_ids
+  internal                                = false
+  http_enabled                            = true
+  access_logs_enabled                     = true
+  alb_access_logs_s3_bucket_force_destroy = true
+  cross_zone_load_balancing_enabled       = true
+  http2_enabled                           = true
+  deletion_protection_enabled             = false
 
   context = module.this.context
 }
 
 resource "aws_ecs_cluster" "default" {
   name = module.this.id
-  tags = module.this.tags
+  tags = {
+    Name = "BPInfra"
+  }
   setting {
     name  = "containerInsights"
     value = "enabled"
@@ -54,9 +53,11 @@ resource "aws_ecs_cluster" "default" {
 }
 
 resource "aws_sns_topic" "sns_topic" {
-  name              = module.this.id
-  display_name      = "Test terraform-aws-ecs-web-app"
-  tags              = module.this.tags
+  name         = module.this.id
+  display_name = "Test terraform-aws-ecs-web-app"
+  tags = {
+    Name = "BPInfra"
+  }
   kms_master_key_id = "alias/aws/sns"
 }
 
