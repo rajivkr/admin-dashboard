@@ -2,6 +2,10 @@
 resource "aws_iam_role" "codebuild_role1" {
   name = "${var.projectname}-codebuild-role"
 
+  tags = {
+    Name = "BPInfra"
+  }
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -19,7 +23,7 @@ EOF
 }
 data "aws_region" "current" {}
 
-data "aws_caller_identity" "current" {}  
+data "aws_caller_identity" "current" {}
 
 resource "aws_iam_role_policy" "codebuild_policy1" {
   name = "${var.projectname}-codebuild-policy"

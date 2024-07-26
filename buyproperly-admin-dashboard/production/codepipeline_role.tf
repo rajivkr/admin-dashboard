@@ -2,6 +2,11 @@
 resource "aws_iam_role" "codepipeline_role1" {
   name = "${var.projectname}-codepipeline-role"
 
+  tags = {
+    Name = "BPInfra"
+  }
+
+
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
